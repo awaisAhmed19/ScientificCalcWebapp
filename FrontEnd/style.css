@@ -1,0 +1,161 @@
+:root{
+    --background:rgb(228, 228, 228);
+    --text-color:black;
+    --top-border:rgb(255, 255, 255);
+    --bottom-border:rgb(201, 201, 201);
+    --left-border:rgb(255, 255, 255);
+    --right-border:rgb(201, 201, 201);
+
+    --pressed-top-border:rgb(94, 94, 94);
+    --pressed-bottom-border:rgb(255, 255, 255);
+    --pressed-left-border:rgb(94, 94, 94);
+    --pressed-right-border:rgb(255, 255, 255);
+
+    
+}
+@font-face {
+    font-family: 'MS Sans Serif';
+    src: url('C:\\Users\\Radeon\\Documents\\MS Sans Serif.ttf') format('truetype');
+    /* You can also include other font formats like woff, woff2 for better compatibility */
+}
+
+body{
+    background-color: var(--background);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+}
+
+
+
+@media screen and (max-width: 912px) {
+    .CalcContainer {
+        width: 80% !important;
+        height: 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .CalcContainer {
+        width: 100% !important;
+        height: 100%;
+    }
+}
+
+.CalcContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40vw;
+    height: 100vh;
+    background-color: transparent;
+
+}
+
+.displayContainer{
+    width: 96%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border:none;
+    border-top: 5px solid rgb(179, 179, 179);
+    border-bottom: 5px solid var(--pressed-bottom-border);
+    border-left: 5px solid rgb(119, 119, 119);
+    border-right: 5px solid var(--pressed-right-border);
+
+}
+
+.DisplayExpression{
+    width:98%;
+    height: 30%;
+    z-index: 99;
+    border: black;
+    display: flex;
+    justify-content: flex-end;
+}
+.DisplayResult{
+    width:98%;
+    height: 50%;
+    border: black;
+    z-index: 99;
+    font-size: 34px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.Mcontainer{
+    width: 98%;
+    height: 11%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    
+}
+
+.Mcontainer button{
+    width: 80%;
+    height: 95%;
+    background-color: var(--background);
+    border:none;
+    font-size: 22px;
+    border-top: 4px solid var(--top-border);
+    border-bottom: 4px solid var(--bottom-border);
+    border-left: 4px solid var(--left-border);
+    border-right: 4px solid var(--right-border);
+}
+
+.Mcontainer button:active{
+    border-top: 3px solid var(--pressed-top-border);
+    border-bottom: 3px solid var(--pressed-bottom-border);
+    border-left: 3px solid var(--pressed-left-border);
+    border-right: 3px solid var(--pressed-right-border);
+}
+
+.container2{
+    width: 98%;
+    height: 66%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    top: 0px;
+}
+
+.container2 button{
+    
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    border:none;
+    font-size: 22px;
+    border-top: 4px solid var(--top-border);
+    border-bottom: 4px solid var(--bottom-border);
+    border-left: 4px solid var(--left-border);
+    border-right: 4px solid var(--right-border);
+}
+
+.container2 button:active{
+    background-color: rgb(192, 192, 192);
+    border-top: 4px solid var(--pressed-top-border);
+    border-bottom: 4px solid var(--pressed-bottom-border);
+    border-left: 4px solid var(--pressed-left-border);
+    border-right: 4px solid var(--pressed-right-border);
+}
