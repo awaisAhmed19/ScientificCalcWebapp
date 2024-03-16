@@ -2,7 +2,7 @@ export class Tokenizer{
     constructor(){
         this.tokens=[];
 
-        this.pattern_dictionary={
+        this.pattern_dictionary = {
             'NUMBER': /^\d+/,
             'PLUS': /^\+/,
             'MINUS': /^\-/,
@@ -22,15 +22,17 @@ export class Tokenizer{
             'POWER': /^\^/,
             'FACTORIAL': /^\!/,
             'COMMA': /^\,/,
-            'VARIABLE': /^[a-zA-Z]+/,
+            'VARIABLE': /^[a-zA-Z0-9]+/,
             'LOG2': /^log2/,
             'LOG10': /^log10/
         };
+        
     }
 
     
-}
-export function tokenizer(expression){
+
+tokenizer(expression){
+    expression=expression.replace(/\s+/g, '');
     this.tokens=[];
     while(expression.length>0){
         let matched=false;
@@ -40,20 +42,19 @@ export function tokenizer(expression){
             const match=expression.match(pattern);
 
             if(match && match.index===0){
-                this.tokens.push({type:patternKey, value:match[0]});
+                this.tokens.push(match[0]);
                 expression=expression.slice(match[0].length);
                 matched=true;
 
             }
         });
         if(!matched){
+            console.log("Invalid token at "+expression);
             throw new Error('Unable to parse expression');
         }
     }
     return this.tokens;
 }
-
-const expression="123 + abc * 45";
-const t=new Tokenizer();
-console.log(t.tokenize(expression));
+}
+export default Tokenizer;
 
