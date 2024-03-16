@@ -15,7 +15,8 @@ const testexpression= [
     "sin(cos(tan(x)))",                   // Nested trigonometric functions
     "log10(exp(sqrt(9)))",                // Nested logarithmic and exponential functions
     "2^3 + sqrt(16) - sin(pi/2)",         // Combined operations with constants
-    "log(100) / sqrt(4) + sqrt(25) * exp(2)" 
+    "log(100) / sqrt(4) + sqrt(25) * exp(2)" ,
+    "1.1+1.34"
 ];
 const tk = new Tokenizer();
 testexpression.forEach(expression=>{

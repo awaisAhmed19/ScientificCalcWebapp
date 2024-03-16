@@ -24,7 +24,8 @@ export class Tokenizer{
             'COMMA': /^\,/,
             'VARIABLE': /^[a-zA-Z0-9]+/,
             'LOG2': /^log2/,
-            'LOG10': /^log10/
+            'LOG10': /^log10/,
+            'DECIMAL': /^\d+\.\d+/,
         };
         
     }
@@ -41,12 +42,14 @@ tokenizer(expression){
             const pattern=this.pattern_dictionary[patternKey];
             const match=expression.match(pattern);
 
-            if(match && match.index===0){
+            if(match && match.index===0 ){
+                //need to handle the decimal litreal case here
+                
                 this.tokens.push(match[0]);
                 expression=expression.slice(match[0].length);
                 matched=true;
-
             }
+
         });
         if(!matched){
             console.log("Invalid token at "+expression);
@@ -57,4 +60,9 @@ tokenizer(expression){
 }
 }
 export default Tokenizer;
+
+//creating a test for tokenizer
+const testexpression= "1.1+1.34";
+const tk = new Tokenizer();
+console.log(tk.tokenizer(testexpression));
 
