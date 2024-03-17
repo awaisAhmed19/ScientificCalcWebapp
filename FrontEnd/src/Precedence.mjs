@@ -30,12 +30,12 @@ export const PRECEDENCE={
   }
 
 export const LEFT_ASSOCIATIVE={
-    '^': False,
-    '*': True,
-    '/': True,
-    '+': True,
-    '-': True,
-    '!': False
+    '^': false,
+    '*': true,
+    '/': true,
+    '+': true,
+    '-': true,
+    '!': false
 }
 
 //export={ OPERATORS, PRECEDENCE ,LEFT_ASSOCIATIVE };

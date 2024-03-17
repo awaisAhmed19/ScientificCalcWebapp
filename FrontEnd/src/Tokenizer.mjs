@@ -58,8 +58,4 @@ export class Tokenizer{
 }
 export default Tokenizer;
 
-//creating a test for tokenizer
-const testexpression= "1.1+ 2344.4";
-const tk = new Tokenizer();
-console.log(tk.tokenize(testexpression));
 
