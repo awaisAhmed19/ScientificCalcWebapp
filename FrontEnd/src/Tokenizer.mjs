@@ -3,6 +3,7 @@ export class Tokenizer{
         this.tokens=[];
 
         this.pattern_dictionary = {
+            'DECIMAL':/([1-9][0-9]*[eE][1-9][0-9]*|(([1-9][0-9]*\.)|(\.[0-9]+))([0-9]*)?([eE][\-\+]?[1-9][0-9]*)?)/mg,  // .1234
             'NUMBER': /^\d+/,
             'PLUS': /^\+/,
             'MINUS': /^\-/,
@@ -25,7 +26,6 @@ export class Tokenizer{
             'VARIABLE': /^[a-zA-Z0-9]+/,
             'LOG2': /^log2/,
             'LOG10': /^log10/,
-            'DECIMAL': /^\d+\.\d+/,
         };
         
     }
@@ -37,19 +37,21 @@ tokenizer(expression){
     this.tokens=[];
     while(expression.length>0){
         let matched=false;
-
+        
         Object.keys(this.pattern_dictionary).forEach((patternKey)=>{
             const pattern=this.pattern_dictionary[patternKey];
             const match=expression.match(pattern);
-
+            //console.log(patternKey)
+            
             if(match && match.index===0 ){
-                //need to handle the decimal litreal case here
-                
+                console.log("Matched token",match[0]);
+                console.log("Remaining expression",expression.slice(match[0].length));                   
                 this.tokens.push(match[0]);
                 expression=expression.slice(match[0].length);
                 matched=true;
-            }
 
+            }
+            
         });
         if(!matched){
             console.log("Invalid token at "+expression);
@@ -62,7 +64,7 @@ tokenizer(expression){
 export default Tokenizer;
 
 //creating a test for tokenizer
-const testexpression= "1.1+1.34";
+const testexpression= "1.1+1.1";
 const tk = new Tokenizer();
 console.log(tk.tokenizer(testexpression));
 
