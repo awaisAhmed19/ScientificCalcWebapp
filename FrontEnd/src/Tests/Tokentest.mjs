@@ -1,5 +1,7 @@
 import Tokenizer from "../Tokenizer.mjs";
-const testexpression= [
+import Parser from "../Parser.mjs";
+let pr=new Parser()
+let testexpression= [
     "1 + 2 * 3",              // Simple arithmetic expression
     "sin(30) + cos(45)",      // Trigonometric functions
     "log(100) / sqrt(4)",     // Logarithmic and square root functions
@@ -20,6 +22,8 @@ const testexpression= [
     "1.2+1.22+32.88286263665635"
 ];
 const tk = new Tokenizer();
+//let teexpression=testexpression.replace(/\s/g,"");
 testexpression.forEach(expression=>{
     console.log(tk.tokenize(expression));
+    console.log(pr.minPrecedence(tk.tokenize(expression)));
 })

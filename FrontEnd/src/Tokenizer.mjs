@@ -47,7 +47,7 @@ export class Tokenizer{
                 }
             }
             if(!matched){
-                cosole.log("invalid expresssion"+expression)
+                console.log("invalid expresssion"+expression)
                 throw new Error(`Unrecognized token: ${expression}`);
             }
         }
