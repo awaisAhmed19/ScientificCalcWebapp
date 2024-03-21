@@ -35,21 +35,24 @@ class RPN {
         this.outputStack = [];
     }
 
-    postfix_Convertor(Expression) {
+    postfix_Converter(Expression) {
         this.tokens = tk.tokenize(Expression);
-        let buffer = '';
+
         for (let token of this.tokens) {
+
             if (!ExpressionChecker.isOperator(token) && !ExpressionChecker.isLeftParen(token) && !ExpressionChecker.isRightParen(token)) {
                 this.outputStack.push(token);
+
             } else if (ExpressionChecker.isLeftParen(token)) {
                 this.operatorStack.push(token);
+
             } else if (ExpressionChecker.isRightParen(token)) {
                 while (!this.operatorStack.isEmpty() && this.operatorStack.top() !== '(') {
                     this.outputStack.push(this.operatorStack.pop());
                 }
                 this.operatorStack.pop(); // Pop the left parenthesis
-            }
-            else if (ExpressionChecker.isOperator(token)) {
+            
+            }else if (ExpressionChecker.isOperator(token)) {
                 while (!this.operatorStack.isEmpty() &&
                     PRECEDENCE[token]<=PRECEDENCE[this.operatorStack.top()]){
                     this.outputStack.push(this.operatorStack.pop());
@@ -58,11 +61,11 @@ class RPN {
             }
         }
     
-        while (this.operatorStack.isEmpty()) {
+        while (!this.operatorStack.isEmpty()) {
             this.outputStack.push(this.operatorStack.pop());
         }
     
-        return this.outputStack.join(',');
+        return this.outputStack
     }
     
 }
@@ -70,5 +73,5 @@ class RPN {
 export default RPN;
 
 let r = new RPN();
-let exp = "3+4*2/(1-5)^2"; //Output: 3,4,2,*,1,5,-,2,^,/,+
-console.log(r.postfix_Convertor(exp));
+let exp = "1.2 + 1.22 + 32.88286263665635"; //Output: 3,4,2,*,1,5,-,/,+
+console.log(r.postfix_Converter(exp));

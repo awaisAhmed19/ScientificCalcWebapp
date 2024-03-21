@@ -24,7 +24,7 @@ export class Tokenizer{
             'POWER': /^\^/,
             'FACTORIAL': /^\!/,
             'COMMA': /^\,/,
-            'VARIABLE': /^[a-zA-Z0-9]+/,
+            'VARIABLE': /^(a|b|c|p|r|s|q|x|y|z|m|n|)+/,
             'LOG2': /^log2/,
             'LOG10': /^log10/,
         };
