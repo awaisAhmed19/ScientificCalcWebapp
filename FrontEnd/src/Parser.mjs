@@ -3,71 +3,46 @@ import Tokenizer from "./Tokenizer.mjs";
 import ExpressionChecker from "./ExpressionChecker.mjs";
 import { PRECEDENCE ,OPERATORS,LEFT_ASSOCIATIVE } from "./Precedence.mjs";
 let tk=new Tokenizer()
-class Node {
-    constructor(value) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-class LiteralNode{
-    constructor(value){
-        this.value=value;
-    }
-}
-
-class Parser{
+//let ch=new ExpressionChecker()
+class RPN{
     constructor(){
         this.tokens=[];
-        this.nodeStack=[];
-        
-    }
-    //Logical issue with parathesis need to be resolved
-    parser(expression){
-        this.tokens=expression;
-        const ast =this.buildAST();
-        return ast;
+        this.operatorStack=[];
+        this.outputStack=[];
     }
 
-    buildAST(){
-        
-        const minOperatorindex=this.minPrecedence(this.tokens);
-        if (minOperatorindex!==-1){
-            const Operator=this.tokens[minOperatorindex];
-            const leftExpression=this.tokens.slice(0,minOperatorindex);
-            const rightExpression=this.tokens.slice(minOperatorindex+1);
-            const node=new Node(Operator);
-            node.left=this.parser(leftExpression);
-            node.right=this.parser(rightExpression);
-            return node;
-        }
-        else{
-            return new LiteralNode(this.tokens.join(' '))
-        }
-        
-    }
-    minPrecedence(Exp) {
-        //Exp=Exp.replace(" ",'')
-        let minPrecedence = Infinity;
-        let index=-1;
-        for (let oper = 0; oper < Exp.length; oper++) {
-            const currentPrecedence = PRECEDENCE[Exp[oper]];
-            if (currentPrecedence <= minPrecedence && LEFT_ASSOCIATIVE[Exp[oper]]) {
-                minPrecedence = currentPrecedence;
-                index=oper
+    postfix_Convertor(Expression){
+        this.tokens = tk.tokenize(Expression);
+    
+        for (let token of this.tokens){
+            if(ExpressionChecker.isNumber(token)){
+                this.outputStack.push(token);
             }
+            else if(ExpressionChecker.isOperator(token)){
+                while(this.operatorStack.length > 0 && this.operatorStack[this.operatorStack.length-1] !== '(' && PRECEDENCE[token] <= PRECEDENCE[this.operatorStack[this.operatorStack.length-1]]){
+                    this.outputStack.push(this.operatorStack.pop());
+                }
+                this.operatorStack.push(token);
+            }
+            else if(ExpressionChecker.isLeftParen(token)){
+                this.operatorStack.push(token);
+            }
+            else if(ExpressionChecker.isRightParen(token)){
+                while(this.operatorStack[this.operatorStack.length-1] !== '('){
+                    this.outputStack.push(this.operatorStack.pop());
+                }
+                this.operatorStack.pop();
+            }
+        } 
+    
+        while (this.operatorStack.length > 0){
+            this.outputStack.push(this.operatorStack.pop());
         }
-        return index;
+    
+        return this.outputStack;
     }
 }
 
-export default Parser;
-
-const parser = new Parser();
-let exp=tk.tokenize("3 + 5 * (7 - 2)");
-// Parse the expression
-const ast = parser.parser(exp);
-
-// Output the abstract syntax tree (AST)
-console.log(ast);
+let r=new RPN();
+let exp="3+4*2/(1-5)^2";
+console.log(r.postfix_Convertor(exp))
