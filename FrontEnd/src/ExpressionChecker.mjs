@@ -16,7 +16,7 @@ class ExpressionChecker {
     }
 
     static isVar(token) {
-        return token.match(/^[a-zA-Z0-9]+/);
+        return token.match(/^(a|b|c|p|r|s|q|x|y|z|m|n|)+/);
     }
 
     static isFunc(token) {

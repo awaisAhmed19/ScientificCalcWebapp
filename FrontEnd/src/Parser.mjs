@@ -1,48 +1,74 @@
 import Tokenizer from "./Tokenizer.mjs";
-//import Node from "./Node.mjs";
 import ExpressionChecker from "./ExpressionChecker.mjs";
-import { PRECEDENCE ,OPERATORS,LEFT_ASSOCIATIVE } from "./Precedence.mjs";
-let tk=new Tokenizer()
-//let ch=new ExpressionChecker()
-class RPN{
-    constructor(){
-        this.tokens=[];
-        this.operatorStack=[];
-        this.outputStack=[];
+import { PRECEDENCE , LEFT_ASSOCIATIVE} from "./Precedence.mjs";
+
+let tk = new Tokenizer();
+class Stack {
+    constructor() {
+        this.items = [];
     }
 
-    postfix_Convertor(Expression){
-        this.tokens = tk.tokenize(Expression);
-    
-        for (let token of this.tokens){
-            if(ExpressionChecker.isNumber(token)){
-                this.outputStack.push(token);
-            }
-            else if(ExpressionChecker.isOperator(token)){
-                while(this.operatorStack.length > 0 && this.operatorStack[this.operatorStack.length-1] !== '(' && PRECEDENCE[token] <= PRECEDENCE[this.operatorStack[this.operatorStack.length-1]]){
-                    this.outputStack.push(this.operatorStack.pop());
-                }
-                this.operatorStack.push(token);
-            }
-            else if(ExpressionChecker.isLeftParen(token)){
-                this.operatorStack.push(token);
-            }
-            else if(ExpressionChecker.isRightParen(token)){
-                while(this.operatorStack[this.operatorStack.length-1] !== '('){
-                    this.outputStack.push(this.operatorStack.pop());
-                }
-                this.operatorStack.pop();
-            }
-        } 
-    
-        while (this.operatorStack.length > 0){
-            this.outputStack.push(this.operatorStack.pop());
+    push(element) {
+        this.items.push(element);
+    }
+
+    pop() {
+        if (this.items.length === 0) {
+            return "Underflow";
         }
-    
-        return this.outputStack;
+        return this.items.pop();
+    }
+
+    top() {
+        return this.items[this.items.length - 1];
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
     }
 }
 
-let r=new RPN();
-let exp="3+4*2/(1-5)^2";
-console.log(r.postfix_Convertor(exp))
+class RPN {
+    constructor() {
+        this.tokens = [];
+        this.operatorStack = new Stack();
+        this.outputStack = [];
+    }
+
+    postfix_Convertor(Expression) {
+        this.tokens = tk.tokenize(Expression);
+        let buffer = '';
+        for (let token of this.tokens) {
+            if (!ExpressionChecker.isOperator(token) && !ExpressionChecker.isLeftParen(token) && !ExpressionChecker.isRightParen(token)) {
+                this.outputStack.push(token);
+            } else if (ExpressionChecker.isLeftParen(token)) {
+                this.operatorStack.push(token);
+            } else if (ExpressionChecker.isRightParen(token)) {
+                while (!this.operatorStack.isEmpty() && this.operatorStack.top() !== '(') {
+                    this.outputStack.push(this.operatorStack.pop());
+                }
+                this.operatorStack.pop(); // Pop the left parenthesis
+            }
+            else if (ExpressionChecker.isOperator(token)) {
+                while (!this.operatorStack.isEmpty() &&
+                    PRECEDENCE[token]<=PRECEDENCE[this.operatorStack.top()]){
+                    this.outputStack.push(this.operatorStack.pop());
+                }
+                this.operatorStack.push(token);
+            }
+        }
+    
+        while (this.operatorStack.isEmpty()) {
+            this.outputStack.push(this.operatorStack.pop());
+        }
+    
+        return this.outputStack.join(',');
+    }
+    
+}
+
+export default RPN;
+
+let r = new RPN();
+let exp = "3+4*2/(1-5)^2"; //Output: 3,4,2,*,1,5,-,2,^,/,+
+console.log(r.postfix_Convertor(exp));
