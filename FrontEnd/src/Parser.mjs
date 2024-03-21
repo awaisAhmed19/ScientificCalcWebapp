@@ -70,8 +70,6 @@ class RPN {
     
 }
 
-export default RPN;
+export {RPN,Stack};
 
-let r = new RPN();
-let exp = "1.2 + 1.22 + 32.88286263665635"; //Output: 3,4,2,*,1,5,-,/,+
-console.log(r.postfix_Converter(exp));
+
