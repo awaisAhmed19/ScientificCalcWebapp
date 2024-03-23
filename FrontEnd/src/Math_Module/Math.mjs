@@ -91,23 +91,39 @@ class math{
         b=this._sqrt_((1-a)*(1+a))/2;
         return this._round_(b,10);
     }
-    _round_(number ,rounding=5){
-        number = number.toString();
-        let deciplace=number.indexOf('.');
 
-        if(deciplace!=-1 && deciplace+rounding+1<number){
-            let digit=parseInt(number[deciplace+rounding+1],10);
-            if(digit>=5){
-                digit=parseInt(number[rounding])+=1;
-                if(digit>=10){
-                    parseInt(number[rounding-1])+=1;
-                }
-            }
-            number=number.slice(number[rounding+1]);
+    _round_(x,n=0){
+        let integer=this._floor_(x);
+        let decimalPart=x-integer;
+        let roundedNumber=0;
+        if(decimalPart<0.5){
+            roundedNumber=integer;
+        }else{
+            roundedNumber=integer+1;
         }
-        return parseInt(number)
+        return roundedNumber
+    }
+    _floor_(x){
+        if (parseInt(x)===x){
+            return x;
+        }
+        if(x>=0){
+            return this._truncate_(x);
+        }
+        if(x<0){
+            return this._truncate_(x)-1;
+        }
+    }
+
+    _truncate_(x){
+        return parseInt(x);
     }
 }
 
 let m=new math();
-console.log(m._round_(30.913892049839483787482093828488));
+//console.log(m._round_(30.99999999999869483787482093828488,10));
+console.log("inbuilt",Math.round(30.913892049869483787482093828488));
+console.log(m._round_(30.913892049869483787482093828488));
+
+
+
