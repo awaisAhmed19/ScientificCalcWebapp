@@ -1,7 +1,9 @@
 import {RPN,Stack}from "./Parser.mjs";
 import ExpressionChecker from "./ExpressionChecker.mjs";
-import math from "./MathModule.mjs"
+import math from "./Math_Module/Math.mjs"
 //import Stack from "./Parser.mjs";
+
+//Evaluator doesnt work as expected 
 let r=new RPN();
 class Eval{
     constructor(){
@@ -19,16 +21,16 @@ class Eval{
                 if(i=='-' && this.output.length>=2){
                     let op1=this.output.pop();
                     let op2=this.output.pop();
-                    this.output.push(this.operations(op2,op1,i))
+                    this.output.push(m.operations(op2,op1,i))
                 }
                 else if(i=='-' && this.output.length==1){
                     let op=this.output.pop();
-                    this.output.push(this.negation(op));
+                    this.output.push(m.negation(op));
                 }
                 else{
                     op1=this.output.pop();
                     op2=this.output.pop();
-                    this.output.push(this.operations(op2,op1,i))
+                    this.output.push(m.operations(op2,op1,i))
                     
                 }
             }
@@ -39,7 +41,7 @@ class Eval{
             else if(ExpressionChecker.isFunc(i)){
                 let value=parseFloat(this.output.pop())
                 let func= i;
-                this.output.push(this.function_eval(func,value));
+                this.output.push(m.funcEval(func,value));
             }
             return this.output;
         }

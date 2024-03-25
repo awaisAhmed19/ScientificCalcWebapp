@@ -20,7 +20,7 @@ class ExpressionChecker {
     }
 
     static isFunc(token) {
-        return token.match(/^(sin|cos|tan|log|exp|sqrt|log2|log10)/);
+        return token.match(/^(sin|cos|tan|log|exp|sqrt|log2|log10|log|cbrt)/);
     }
 
     static isConst(token) {

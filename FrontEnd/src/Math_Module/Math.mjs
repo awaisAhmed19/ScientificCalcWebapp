@@ -1,20 +1,43 @@
-const PI= 3.14159265358979323846;
-class math{
+export class Math{
     operations(x,y,token){
 
         switch(token){
-            case '+':this._add_(x,y);
+            case '+':return this._add_(x,y);
                 break;
-            case '-':this._sub_(x,y);
+            case '-':return this._sub_(x,y);
                 break;
-            case '*':this._mul_(x,y);
+            case '*':return this._mul_(x,y);
                 break;
-            case '/':this._div_(x,y);
+            case '/':return this._div_(x,y);
                 break;
-            case '^':this._exp_(x,y);
+            case '^':return this._exp_(x,y);
                 break;
+            default:
+                return "Invalid function";
         } 
 
+    }
+    funcEval(func,x){
+        switch(func){
+            case 'sin':return  this._sin_(x);
+                break;
+            case 'cos': return this._cos_(x);
+                break;
+            case 'tan':return  this._tan_(x);
+                break;
+            case 'log2': return this._log2_(x);
+                break;
+            case 'log': return this._ln_(x);
+                break;
+            case 'log10': return this._log10_(x);
+                break;
+            case 'sqrt':return  this._sqrt_(x);
+                break;
+            case 'cbrt':return  this._cbrt_(x);
+                break;
+            default:
+                return "Invalid function";
+        }
     } 
 
     _add_(x,y){ return x+y; }
@@ -122,46 +145,26 @@ class math{
     
 
     _fact_(x){
-        if(x==0){ return 1; }
+        if(x===0||x===1){ return 1; }
         else{ return x*this._fact_(x-1);}
     }
 
     
     _sin_(x){
-        let angle=this._rad_(x);
-        let res=0.0;
-        
-        for(let i=0;i<10;i++){
-            let coeff= this._exp_(-1,i)/this._fact_(2*i+1);
-            let term=coeff*(this._exp_(x,2*i+1));
-            res+=term
-            
-        }
-        return res;
+
+        return Math.sin(x);
     }
+    
     _cos_(x){
-        let angle=this._rad_(x);
-        let res=0.0;
-        
-        for(let i=0;i<10;i++){
-            let coeff= this._exp_(-1,i)/this._fact_(2*i);
-            let term=coeff*this._exp_(x,2*i);
-            res+=term;
-            
-        }
-        return res;
+
+        return Math.cos(x);
     }
     _tan_(x){
-        //need to work on the logical error in tangent 
-        let angle=this._rad_(x);
-        let res=0;
-        for (let i=0;i<10;i++){
-            let coeff=2*i+1;
-            let term=(this._exp_(-1,i))*(this._exp_(angle,coeff))/this._fact_(coeff);
-            res+=term;
-        }
-        return res
+        return Math.tan(x);
     }
+    
+    
+    
 
      _round_(x, n = 0) {
         let integer = this._floor_(x);
@@ -195,8 +198,4 @@ class math{
     _truncate_(x){ return parseInt(x); }
 }
 
-
-let m=new math();
-console.log(Math.sin(Math.PI/6), Math.cos(Math.PI/6), Math.tan(Math.PI/6));
-console.log(m._sin_(Math.PI/6), m._cos_(Math.PI/6),m._tan_(Math.PI/6));
-//console.log(m._round_(0.5773502691896257,10))
+export default Math;
