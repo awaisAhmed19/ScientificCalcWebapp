@@ -15,7 +15,7 @@ class math{
                 break;
         } 
 
-    }
+    } 
 
     _add_(x,y){ return x+y; }
     _sub_(x,y){ return x-y; }
@@ -37,9 +37,7 @@ class math{
         y=parseInt(y);
         let temp=0
         if(y<35){
-            if (y==0){
-                return 1;
-            }
+            if (y==0){ return 1; }
             else{
                 if (y%2==0){
                     temp=this._exp_(x,y/2);
@@ -54,11 +52,8 @@ class math{
     }
 
     _fact_(x){
-        if(x==0){
-            return 1;
-        }else{
-        return x*this._fact_(x-1);
-        }
+        if(x==0){ return 1; }
+        else{ return x*this._fact_(x-1);}
     }
 
     
@@ -92,38 +87,60 @@ class math{
         return this._round_(b,10);
     }
 
-    _round_(x,n=0){
-        let integer=this._floor_(x);
-        let decimalPart=x-integer;
-        let roundedNumber=0;
-        if(decimalPart<0.5){
-            roundedNumber=integer;
-        }else{
-            roundedNumber=integer+1;
+     _round_(x, n = 0) {
+        let integer = this._floor_(x);
+        let decimalPart = x - integer;
+        let roundedNumber = 0;
+    
+        if (n > 0) {
+            let shiftedDecimal = decimalPart * this._exp_(10, n);
+            let roundedDecimal = this._floor_(shiftedDecimal)%10;
+            let newDecimal=this._floor_(shiftedDecimal)/this._exp_(10,n);
+            if (roundedDecimal >= 5) {
+                newDecimal+=1/this._exp_(10,n); 
+            }
+                roundedNumber = integer + newDecimal; 
+        } else {
+            if (decimalPart < 0.5) {
+                roundedNumber = integer;
+            } else {
+                roundedNumber = integer + 1;
+            }
         }
-        return roundedNumber
+        return roundedNumber;
     }
+    
     _floor_(x){
-        if (parseInt(x)===x){
-            return x;
-        }
-        if(x>=0){
-            return this._truncate_(x);
-        }
-        if(x<0){
-            return this._truncate_(x)-1;
-        }
+        if (parseInt(x)===x){ return x; }
+        if(x>=0){ return this._truncate_(x); }
+        else{ return this._truncate_(x)-1; }
     }
 
-    _truncate_(x){
-        return parseInt(x);
-    }
+    _truncate_(x){ return parseInt(x); }
 }
 
 let m=new math();
-//console.log(m._round_(30.99999999999869483787482093828488,10));
-console.log("inbuilt",Math.round(30.913892049869483787482093828488));
-console.log(m._round_(30.913892049869483787482093828488));
+console.log("Inbuilt:", Math.round(3.45678));
+console.log("_round_:", m._round_(3.45678));
+
+console.log("Inbuilt:", Math.round(3.45678 * 100) / 100);
+console.log("_round_:", m._round_(3.45678, 2));
+
+console.log("Inbuilt:", Math.round(3.45678 * 1000) / 1000);
+console.log("_round_:", m._round_(3.45678, 3));
+
+console.log("Inbuilt:", Math.round(3.45678 * 100000) / 100000);
+console.log("_round_:", m._round_(3.45678, 5));
+
+console.log("Inbuilt:", Math.round(3.789));
+console.log("_round_:", m._round_(3.789));
+
+console.log("Inbuilt:", Math.round(-5.6789));
+console.log("_round_:", m._round_(-5.6789));
+
+console.log("Inbuilt:", Math.round(-5.6789 * 100) / 100);
+console.log("_round_:", m._round_(-5.6789, 2));
+
 
 
 
