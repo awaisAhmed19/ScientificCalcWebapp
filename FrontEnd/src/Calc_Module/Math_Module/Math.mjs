@@ -1,3 +1,5 @@
+import ExpressionChecker from "../ExpressionChecker.mjs";
+const Ec=new ExpressionChecker();
 export class math{
     operations(x,y,token){
 
@@ -44,8 +46,9 @@ export class math{
     _sub_(x,y){ return x-y; }
     _mul_(x,y){ return x*y; }
     _sqrt_(x){ return this._exp_(x,0.5); }
-    _deg_(x){ return (180/PI)*x; }
-    _rad_(x){ return (PI/180)*x; }
+    _deg_(x){ return x*(180/Math.PI); }
+    _rad_(x){ return x*(Math.PI/180); }
+    _negation_(x){return x*(-1)}
     _abs_(x){
         if(x<0){
             return x*-1;
@@ -151,16 +154,14 @@ export class math{
 
     
     _sin_(x){
-
-        return Math.sin(x);
+        return Math.sin(this._rad_(x));
     }
     
     _cos_(x){
-
-        return Math.cos(x);
+        return Math.cos(this._rad_(x));
     }
     _tan_(x){
-        return Math.tan(x);
+        return Math.tan(this._rad_(x));
     }
     
     

@@ -43,7 +43,7 @@ class RPN {
             if (!Ec.isOperator(token) && !Ec.isLeftParen(token) && !Ec.isRightParen(token)&&!Ec.isFunc(token)) {
                 this.outputStack.push(token);
 
-            } else if (Ec.isLeftParen(token)) {
+            }else if (Ec.isLeftParen(token)) {
                 this.operatorStack.push(token);
 
             } else if (Ec.isRightParen(token)) {
@@ -66,12 +66,12 @@ class RPN {
         while (!this.operatorStack.isEmpty()) {
             this.outputStack.push(this.operatorStack.pop());
         }
-    
         return this.outputStack
     }
     
 }
 
 export {RPN,Stack};
-
+//const R=new RPN();
+//console.log(R.postfix_Converter("sin(sin(30))"));
 
