@@ -1,7 +1,7 @@
 import Tokenizer from "./Tokenizer.mjs";
 import ExpressionChecker from "./ExpressionChecker.mjs";
 import { PRECEDENCE , LEFT_ASSOCIATIVE} from "./Precedence.mjs";
-
+let Ec=new ExpressionChecker();
 let tk = new Tokenizer();
 class Stack {
     constructor() {
@@ -40,23 +40,25 @@ class RPN {
 
         for (let token of this.tokens) {
 
-            if (!ExpressionChecker.isOperator(token) && !ExpressionChecker.isLeftParen(token) && !ExpressionChecker.isRightParen(token)) {
+            if (!Ec.isOperator(token) && !Ec.isLeftParen(token) && !Ec.isRightParen(token)&&!Ec.isFunc(token)) {
                 this.outputStack.push(token);
 
-            } else if (ExpressionChecker.isLeftParen(token)) {
+            } else if (Ec.isLeftParen(token)) {
                 this.operatorStack.push(token);
 
-            } else if (ExpressionChecker.isRightParen(token)) {
+            } else if (Ec.isRightParen(token)) {
                 while (!this.operatorStack.isEmpty() && this.operatorStack.top() !== '(') {
                     this.outputStack.push(this.operatorStack.pop());
                 }
-                this.operatorStack.pop(); // Pop the left parenthesis
-            
-            }else if (ExpressionChecker.isOperator(token)) {
+                this.operatorStack.pop(); 
+
+            }else if (Ec.isOperator(token)) {
                 while (!this.operatorStack.isEmpty() &&
                     PRECEDENCE[token]<=PRECEDENCE[this.operatorStack.top()]){
                     this.outputStack.push(this.operatorStack.pop());
                 }
+                this.operatorStack.push(token);
+            }else if(Ec.isFunc(token)){
                 this.operatorStack.push(token);
             }
         }

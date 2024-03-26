@@ -1,4 +1,4 @@
-export class Math{
+export class math{
     operations(x,y,token){
 
         switch(token){
@@ -198,4 +198,6 @@ export class Math{
     _truncate_(x){ return parseInt(x); }
 }
 
-export default Math;
+export default math;
+let m=new math();
+//console.log(m._sin_(45));
