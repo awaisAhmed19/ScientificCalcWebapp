@@ -13,36 +13,6 @@
         <div class="DisplayExpression" id="calculatorDisplay"></div>
         <div class="DisplayResult" id="calculatorResult"></div>
     </div>
-    <div class ="ScientificContainer">
-      <div class="convertorButtons"></div>
-      <div class="Sbuttons">
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-        <button class="btnEl" value=""></button>
-      </div>
-    </div>
     <div class="Mcontainer">
         <button class="memoryButton">MC</button>
         <button class="memoryButton">MR</button>
@@ -50,32 +20,77 @@
         <button class="memoryButton">M-</button>
         <button class="memoryButton">MS</button>
     </div>
-    <div class="container2">
-        <button class="btnEl" value="%">%</button>
-        <button class="clearButton" >C</button>
-        <button class="clearDisplay" >CE</button>
-        <button class="backSpace" >←</button>
-        <button class="btnEl" value="1/">1/X</button>
-        <button class="btnEl" value="^2">X^2</button>
-        <button class="btnEl" value="sqrt(">sqrt(X) </button>
-        <button class="btnEl" value="/">/</button>
-        <button class="btnEl" value="7">7</button>
-        <button class="btnEl" value="8"  >8</button>
-        <button class="btnEl" value="9"  >9</button>
-        <button class="btnEl" value="*"  >x</button>
-        <button class="btnEl" value="4"  >4</button>
-        <button class="btnEl" value="5"  >5</button>
-        <button class="btnEl" value="6"  >6</button>
-        <button class="btnEl" value="-"  >-</button>
-        <button class="btnEl" value="1"  >1</button>
-        <button class="btnEl" value="2"  >2</button>
-        <button class="btnEl" value="3"  >3</button>
-        <button class="btnEl" value="+"  >+</button>
-        <button class="btnEl" value="-" >+-</button>
-        <button class="btnEl" value="0"  >0</button>
-        <button class="btnEl" value="."  >.</button>
-        <button class="calculate" >=</button>
+    <div class="buttonClass">
+        
+        <div class="Scontainer">
+            <button class="btnEl" id="previewblank" value=" "></button>
+            <button class="btnEl" value="Inv(">Inv</button>
+            <button class="btnEl" value="ln(">ln</button>
+            <button class="btnEl" value="(">(</button>
+            <button class="btnEl" value=")">)</button>
+           
+            <button class="btnEl" value="Int">Int</button>
+            <button class="btnEl" value="sinh(">sinh</button>
+            <button class="btnEl" value="sin(">sin</button>
+            <button class="btnEl" value="^2">X^2</button>
+            <button class="btnEl" value="!">n!</button>
+           
+            <button class="btnEl" value="dms">Dms</button>
+            <button class="btnEl" value="cosh">cosh</button>
+            <button class="btnEl" value="cos">cos</button>
+            <button class="btnEl" value="^">x^y</button>
+            <button class="btnEl" value="^(1/">ySqrt(x)</button>
+           
+            <button class="btnEl" value="pi">Pi</button>
+            <button class="btnEl" value="tanh">tanh</button>
+            <button class="btnEl" value="tan">tan</button>
+            <button class="btnEl" value="^3">x^3</button>
+            <button class="btnEl" value="cbrt(">cbrt(x)</button>
+            
+            <button class="btnEl" value="F-E">F-E</button>
+            <button class="btnEl" value="Exp(">Exp</button>
+            <button class="btnEl" value="Mod(">Mod</button>
+            <button class="btnEl" value="log(">log</button>
+            <button class="btnEl" value="10^">10^x</button>
+               
+        </div>
+    <div class="primary">
+        <div class="container2">
+            <button class="backSpace" >←</button>
+            <button class="clearDisplay" >CE</button>
+            <button class="clearButton" >C</button>
+            <button class="btnEl" value="-" >+-</button>
+            <button class="btnEl" value="7">7</button>
+            <button class="btnEl" value="8">8</button>
+            <button class="btnEl" value="9">9</button>
+            <button class="btnEl" value="/">/</button>
+            <button class="btnEl" value="4">4</button>
+            <button class="btnEl" value="5">5</button>
+            <button class="btnEl" value="6">6</button>
+            <button class="btnEl" value="*">x</button>
+            <button class="btnEl" value="1">1</button>
+            <button class="btnEl" value="2">2</button>
+            <button class="btnEl" value="3">3</button>
+            <button class="btnEl" value="-">-</button>
+            <button class="btnEl" value="0">0</button>
+            <button class="btnEl" value=".">.</button>
+            <button class="btnEl" value="+">+</button>
+        </div>
+        <div class="last-column">
+            <div class="col">
+            <button class="btnEl" value="sqrt(">sqrt(X)</button>
+            <button class="btnEl" value="%">%</button>
+            <button class="btnEl" value="1/">1/X</button>
+            
+            
+        </div>
+        <div class="equals">
+            <button class="calculate">=</button>
+        </div>
     </div>
+    </div>
+</div>
+    
 </div>
 
 </body>

@@ -49,7 +49,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40vw;
+    width: 65vw;
     height: 100vh;
     background-color: transparent;
 
@@ -124,35 +124,98 @@ body{
     border-right: 3px solid var(--pressed-right-border);
 }
 
-.container2{
+.buttonClass{
     width: 98%;
-    height: 66%;
-    display: grid;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+}
+.primary{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.last-column{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    background-color: transparent;
+    position: relative;
+}
+.col{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+}
+.equals{
+    width: 100%;
+    height: 40%;
+    bottom: 0;
+}
+.Scontainer{
+width: 100%;
+height: 100%;
+grid-template-columns: repeat(5,1fr);
+}
+
+.container2{
+    width: 80%;
+    height: 100%;
     grid-template-columns: repeat(4,1fr);
+    }
+.container2 button:nth-last-child(3){
+    grid-row: 5;
+    grid-column: 1/3;
+}
+.container2,
+.Scontainer{
+    display: grid;
     justify-content: center;
     align-items: center;
     background-color: transparent;
     position: relative;
     top: 0px;
+    grid-auto-flow: dense;
 }
 
-.container2 button{
-    
+
+.Scontainer button,
+.container2 button,
+.col button,
+.equals button{
     width: 100%;
     height: 100%;
     background-color: var(--background);
     border:none;
-    font-size: 22px;
+    font-size: 16px;
     border-top: 4px solid var(--top-border);
     border-bottom: 4px solid var(--bottom-border);
     border-left: 4px solid var(--left-border);
     border-right: 4px solid var(--right-border);
 }
 
-.container2 button:active{
+
+.container2 button:active,
+.Scontainer button:active,
+.last-column button:active,
+.equals button:active{
     background-color: rgb(192, 192, 192);
     border-top: 4px solid var(--pressed-top-border);
     border-bottom: 4px solid var(--pressed-bottom-border);
     border-left: 4px solid var(--pressed-left-border);
     border-right: 4px solid var(--pressed-right-border);
 }
+
+#previewblank{
+    background-color: rgb(192, 192, 192);
+    border-top: 4px solid var(--pressed-top-border);
+    border-bottom: 4px solid var(--pressed-bottom-border);
+    border-left: 4px solid var(--pressed-left-border);
+    border-right: 4px solid var(--pressed-right-border);
+}
+
