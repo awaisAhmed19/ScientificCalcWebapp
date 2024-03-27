@@ -1,12 +1,12 @@
-import {RPN}from "./Parser.mjs";
-import Tokenizer from "./Tokenizer.mjs";
-import ExpressionChecker from "./ExpressionChecker.mjs";
-import math from "./Math_Module/Math.mjs"
-let tk=new Tokenizer();
-let r=new RPN();
-let m=new math();
-let Ec=new ExpressionChecker()
-class Eval{
+import {RPN}from "./Parser.js";
+import ExpressionChecker from "./ExpressionChecker.js";
+import math from "./Math.js"
+
+const r=new RPN();
+const m=new math();
+const Ec=new ExpressionChecker();
+
+export class Eval{
     constructor(){
         this.output=[];
     }
@@ -26,7 +26,7 @@ class Eval{
                 }
                 else if(i=='-' && this.output.length==1){
                     let op=this.output.pop();
-                    this.output.push(m.negation(op));
+                    this.output.push(m._negation_(op));
                 }
                 else{
                     op1=this.output.pop();
@@ -40,17 +40,19 @@ class Eval{
                 this.output.push(this.fact(op));
             }
             else if(Ec.isFunc(i)){
-                let value=parseFloat(this.output.pop())
+                let value=this.output.pop();
+                if (typeof value === 'undefined'|| Ec.isVar(value)) {
+                    throw new Error("Invalid expression: Unexpected end of input");
+                }
                 let func= i;
-                this.output.push(m.funcEval(func,value));
+                this.output.push(m.funcEval(func,parseFloat(value)));
             }
+        
         }
         return this.output.pop();
     }
 }
 
-let e=new Eval();
-let exp="sin(45)"
-console.log(tk.tokenize(exp))
-console.log(r.postfix_Converter(exp))
-console.log(e.evalulator(exp));
+export default Eval;
+
+

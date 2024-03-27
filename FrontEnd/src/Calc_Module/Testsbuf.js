@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Eval from './Evaluator.mjs'; 
+import Eval from './Evaluator.js'; 
 const e=new Eval();
 describe('Evaluator', () => {
     it('should add two numbers correctly', () => {
