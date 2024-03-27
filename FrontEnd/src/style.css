@@ -13,11 +13,8 @@
 
     
 }
-@font-face {
-    font-family: 'MS Sans Serif';
-    src: url('C:\\Users\\Radeon\\Documents\\MS Sans Serif.ttf') format('truetype');
-    /* You can also include other font formats like woff, woff2 for better compatibility */
-}
+
+
 
 body{
     background-color: var(--background);
