@@ -24,7 +24,7 @@ This is a web application that brings back the nostalgic feel of Windows 98, fea
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/awaisAhmed19/webcalc.git
+    git clone https://github.com/awaisAhmed19/ScientificCalcWebapp.git
     ```
 
 2. Open the `index.html` file in your web browser.
