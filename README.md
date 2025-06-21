@@ -27,13 +27,16 @@ This is a web application that brings back the nostalgic feel of Windows 98, fea
     git clone https://github.com/awaisAhmed19/ScientificCalcWebapp.git
     ```
 
-2. Open the `index.html` file in your web browser.
+2. then do this 
+    ```bash
+    python -m venv calc
+    source calc/bin/activate
+    pip install -r requirement.txt
+    python -m app
+    ```
 
 3. Start crunching those numbers with a touch of nostalgia!
 
-## Screenshots
-
-Insert screenshots or GIFs of your retro calculator in action.
 
 ## Acknowledgements
 
