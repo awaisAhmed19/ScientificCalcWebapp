@@ -1,15 +1,21 @@
+import { ExpressionChecker } from "./ExpressionChecker.js";
+const ec = new ExpressionChecker();
 export class Tokenizer {
   constructor() {
     this.tokens = [];
 
     this.TOKEN_TYPE = {
-      NUMBER: "NUMBER",
+      KEYWORD: "KEYWORD",
+      LITERAL: "LITERAL",
       OPERATOR: "OPERATOR",
+      B_OPERATOR: "B_OPERATOR",
+      U_OPERATOR: "U_OPERATOR",
       IDENTIFIER: "IDENTIFIER",
       LPAREN: "LPAREN",
       RPAREN: "RPAREN",
       VARIABLE: "VARIABLE",
       COMMA: "COMMA",
+      WHITESPACE: "WHITESPACE",
     };
   }
 
@@ -30,8 +36,8 @@ export class Tokenizer {
           i++;
         }
         this.tokens.push({
-          type: this.TOKEN_TYPE.NUMBER,
-          value: parseFloat(num),
+          type: this.TOKEN_TYPE.LITERAL,
+          value: num,
         });
         continue;
       }
@@ -41,17 +47,32 @@ export class Tokenizer {
         continue;
       }
       if (/[a-zA-Z]/.test(char)) {
-        let ident = char;
+        let buff = char;
         i++;
         while (/[a-zA-Z0-9_]/.test(expression[i])) {
-          ident += expression[i];
+          buff += expression[i];
           i++;
         }
-        this.tokens.push({ type: this.TOKEN_TYPE.IDENTIFIER, value: ident });
+        if (ec.isFunc(buff)) {
+          this.tokens.push({ type: this.TOKEN_TYPE.KEYWORD, value: buff });
+        } else {
+          this.tokens.push({ type: this.TOKEN_TYPE.IDENTIFIER, value: buff });
+        }
         continue;
       }
       if ("+-*/^".includes(char)) {
-        this.tokens.push({ type: this.TOKEN_TYPE.OPERATOR, value: char });
+        if (
+          (this.tokens.length === 0 && char == "-") ||
+          ((this.tokens[this.tokens.length - 1].type ==
+            this.TOKEN_TYPE.LPAREN ||
+            this.tokens[this.tokens.length - 1].type ==
+              this.TOKEN_TYPE.B_OPERATOR) &&
+            char == "-")
+        ) {
+          this.tokens.push({ type: this.TOKEN_TYPE.U_OPERATOR, value: char });
+        } else {
+          this.tokens.push({ type: this.TOKEN_TYPE.B_OPERATOR, value: char });
+        }
         i++;
         continue;
       }
@@ -65,8 +86,9 @@ export class Tokenizer {
         this.tokens.push({ type: this.TOKEN_TYPE.RPAREN, value: char });
         i++;
         continue;
+      } else {
+        throw new Error(`Unregonised character: ${char}`);
       }
-      throw new Error(`Unregonised character: ${char}`);
     }
     return this.tokens;
   }
@@ -95,11 +117,14 @@ const formulas = [
   "0.5 * (base * height)",
 ];
 
-let test = "x + 5";
+/*let test = "2*-x + 5";
 let testres = Tok.tokenize(test);
-console.log(testres.type);
-console.log(testres.value);
-/*
+let t;
+for (t of testres) {
+  console.log(t);
+  console.log(t.type);
+  console.log(t.value);
+}
 formulas.forEach((expr) => {
   try {
     const res = Tok.tokenize(expr);

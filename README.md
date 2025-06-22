@@ -1,6 +1,6 @@
 # Windows98 Retro Calculator Web App
 
-![Windows98 Retro Calculator](imgs\calc.PNG)
+![Windows98 Retro Calculator](~/Documents/ScientificCalcWebapp/assets/SC.png)
 
 ## Overview
 

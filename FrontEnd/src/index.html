@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Web Calc</title>
     <link
+      rel="icon"
+      href="{{url_for('static',filename='../imgs/calc_icon.ico')}}"
+      type="image/x-icon"
+    />
+    <link
       rel="stylesheet"
       href="{{url_for('static',filename='./style.css')}}"
     />
@@ -34,21 +39,21 @@
           <button class="btnEl" value="(">(</button>
           <button class="btnEl" value=")">)</button>
 
-          <button class="btnEl" value="Int">Int</button>
+          <button class="btnEl" value="Int(">Int</button>
           <button class="btnEl" value="sinh(">sinh</button>
           <button class="btnEl" value="sin(">sin</button>
           <button class="btnEl" value="^2">X^2</button>
           <button class="btnEl" value="!">n!</button>
 
-          <button class="btnEl" value="dms">Dms</button>
-          <button class="btnEl" value="cosh">cosh</button>
-          <button class="btnEl" value="cos">cos</button>
+          <button class="btnEl" value="dms(">Dms</button>
+          <button class="btnEl" value="cosh(">cosh</button>
+          <button class="btnEl" value="cos(">cos</button>
           <button class="btnEl" value="^">x^y</button>
           <button class="btnEl" value="^(1/">ySqrt(x)</button>
 
           <button class="btnEl" value="pi">Pi</button>
-          <button class="btnEl" value="tanh">tanh</button>
-          <button class="btnEl" value="tan">tan</button>
+          <button class="btnEl" value="tanh(">tanh</button>
+          <button class="btnEl" value="tan(">tan</button>
           <button class="btnEl" value="^3">x^3</button>
           <button class="btnEl" value="cbrt(">cbrt(x)</button>
 
