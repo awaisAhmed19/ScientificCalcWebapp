@@ -17,6 +17,14 @@ clearDisplay.addEventListener("click", (event) => {
 });
 
 backSpace.addEventListener("click", (event) => {
+  const identifiers = ['sin(','cos(','tan(','sinh(','cosh(','tanh(','cbrt(','Int','Inv(','dms','pi','ln(','log(','Mod(','Exp(','10^','^(','^(1/','sqrt(']
+  for(let i=5;i>=2;i--){
+    const end = expression.textContent.slice(-i);
+    // console.log(end)
+    if(identifiers.includes(end)){
+      expression.textContent = expression.textContent.slice(0,-i)
+    }
+  }
   expression.textContent = expression.textContent.substring(
     0,
     expression.textContent.length - 1,
