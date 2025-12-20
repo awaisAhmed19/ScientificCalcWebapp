@@ -133,4 +133,6 @@ formulas.forEach((expr) => {
     console.log(`❌ ${expr} →`, err.message);
   }
 });*/
+//const test = new Tokenizer();
+//console.log(test.tokenize("sin(30)"));
 export default Tokenizer;

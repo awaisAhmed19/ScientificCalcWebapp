@@ -34,6 +34,14 @@ class AST {
     this.cursor = 0;
     this.operands = [];
     this.operator = new Stack();
+    this.rpn();
+    this.print();
+  }
+  print() {
+    let tokens = this.operands;
+    for (let t of tokens) {
+      console.log(t);
+    }
   }
   rpn() {
     for (let tk of this.Tokens) {
@@ -52,50 +60,52 @@ class AST {
       } else if (tk.type == "B_OPERATOR" || tk.type == "U_BINARY") {
         while (
           !this.operator.isEmpty() &&
-          PRECEDENCE[tk.value] <= PRECEDENCE[this.operator.top()]
+          PRECEDENCE[tk.value] <= PRECEDENCE[this.operator.top().value]
         ) {
-          this.operands.push(this.operator.top());
+          this.operands.push(this.operator.pop());
         }
         this.operands.push(tk);
       } else if (tk.type == "KEYWORD") {
         this.operator.push(tk);
       }
     }
-    for (let tkn of this.operands) {
-      console.log(tkn);
+    while (!this.operator.isEmpty()) {
+      this.operands.push(this.operator.pop());
     }
-    return this.operands;
   }
   Ast() {
-    const operands = this.rpn();
+    this.rpn();
+    let operands = this.operands;
     let i = operands.length - 1;
     function tree_parse() {
       const t = operands[i--];
+
+      if (t.type == "U_OPERATOR") {
+        const operand = tree_parse();
+        return { type: "U_BINARY", op: t.value, arg: operand };
+      }
+
+      if (t.type == "B_OPERATOR") {
+        const right = tree_parse();
+        const left = tree_parse();
+        return { type: "B_OPERATOR", op: t.value, left, right };
+      }
+
+      if (t.type == "KEYWORD") {
+        const right = tree_parse();
+        const left = tree_parse();
+        return { type: "KEYWORD", func: t.value, left, right };
+      }
+
+      // Move literal check last
       if (t.type == "LITERAL") {
         return { type: "LITERAL", value: t.value };
-      } else if (t.type == "U_OPERATOR") {
-        let operand = tree_parse();
-        return { type: "U_BINARY", op: t.value, arg: operand };
-      } else if (t.type == "B_OPERATOR") {
-        let right = tree_parse();
-        let left = tree_parse();
-        return { type: "B_OPERATOR", op: t.value, left, right };
-      } else if (t.type == "KEYWORD") {
-        let right = tree_parse();
-        let left = tree_parse();
-
-        if (right.type == "LITERAL" && left.type == "LITERAL") {
-          return { type: "KEYWORD", func: t.value, left, right };
-        } else if (right.type == "LITERAL" && left.type !== "LITERAL") {
-          return { type: "KEYWORD", func: t.value, right };
-        } else if (right.type !== "LITERAL" && left.type == "LITERAL") {
-          return { type: "KEYWORD", func: t.value, left };
-        }
       }
-      throw new Error("Unknown token:" + JSON.stringify(t));
-    }
 
-    return tree_parse();
+      throw new Error("Unknown token: " + JSON.stringify(t));
+    }
+    const result = tree_parse();
+    return JSON.stringify(result, null, 2);
   }
 }
 class RPN {
@@ -142,7 +152,7 @@ class RPN {
 
 export { RPN, Stack };
 const R = new RPN();
-const A = new AST("3+4*2+sin(10)");
-console.log(R.postfix_Converter("3+4*2+sin(10)"));
+const A = new AST("3+4*2");
+console.log(R.postfix_Converter("3+4*2"));
 const tree = A.Ast();
-console.log(JSON.stringify(tree, null, 2));
+console.log(tree);
